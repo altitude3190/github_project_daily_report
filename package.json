@@ -1,0 +1,22 @@
+{
+  "name": "github_project_daily_report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altitude3190/github_project_daily_report.git"
+  },
+  "author": "Hodaka Suzuki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/altitude3190/github_project_daily_report/issues"
+  },
+  "homepage": "https://github.com/altitude3190/github_project_daily_report#readme"
+}
