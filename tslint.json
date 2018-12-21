@@ -1,0 +1,13 @@
+{
+
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "object-shorthand-properties-first": false,
+    "radix": false,
+    "ter-arrow-parens": false,
+    "prettier": [true, {
+      "tabWidth": 4,
+      "bracketSpacing": true
+    }]
+  }
+}
