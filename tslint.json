@@ -1,13 +1,18 @@
 {
-
-  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "extends": [
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ],
   "rules": {
-    "object-shorthand-properties-first": false,
-    "radix": false,
-    "ter-arrow-parens": false,
-    "prettier": [true, {
-      "tabWidth": 4,
-      "bracketSpacing": true
-    }]
+    "prettier": [
+      true, {
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true
+      }
+    ]
   }
 }
