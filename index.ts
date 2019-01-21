@@ -1,3 +1,5 @@
+import Client from './src/client'
+
 class Startup {
     public static main(hoge: string): number {
         console.log('Hello World' + hoge)
@@ -13,7 +15,12 @@ function today(): string {
     return `${YYYY}-${MM}-${DD}`
 }
 
-const project = process.argv[2]
-const since = process.argv[3] || today()
+const owner = process.argv[2]
+const repo = process.argv[3]
+const since = process.argv[4] || today()
 
 Startup.main(since)
+
+const client = new Client()
+const hoge = client.getIssues(owner, repo, since)
+console.log(hoge)
