@@ -1,4 +1,5 @@
 import Client from './src/client'
+import Formatter from './src/formatter';
 
 class Startup {
     public static main(hoge: string): number {
@@ -28,6 +29,8 @@ const hoge = client
         console.log(e)
     })
     .then(res => {
-        console.log(res)
+        if (res) {
+            const formatter = new Formatter(res)
+            console.log(formatter.format())
+        }
     })
-console.log(hoge)
