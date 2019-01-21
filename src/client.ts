@@ -18,11 +18,13 @@ export default class Client {
     }
     public async getIssues(owner: string, repo: string, since: string) {
         try {
-            return await this.octokit.issues.listForRepo({
+            const { data } = await this.octokit.issues.listForRepo({
                 owner,
                 repo,
                 since
             })
+            // console.log(data)
+            return data
         } catch (e) {
             console.log('ERROR', e)
         }

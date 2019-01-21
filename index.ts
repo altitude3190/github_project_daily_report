@@ -22,5 +22,12 @@ const since = process.argv[4] || today()
 Startup.main(since)
 
 const client = new Client()
-const hoge = client.getIssues(owner, repo, since)
+const hoge = client
+    .getIssues(owner, repo, since)
+    .catch(e => {
+        console.log(e)
+    })
+    .then(res => {
+        console.log(res)
+    })
 console.log(hoge)
