@@ -19,12 +19,13 @@ function today(): string {
 const owner = process.argv[2]
 const repo = process.argv[3]
 const since = process.argv[4] || today()
+const assignee = process.argv[5] || '*'
 
 Startup.main(since)
 
 const client = new Client()
 const hoge = client
-    .getIssues(owner, repo, since)
+    .getIssues(owner, repo, since, assignee)
     .catch(e => {
         console.log(e)
     })

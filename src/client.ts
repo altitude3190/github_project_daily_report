@@ -16,14 +16,19 @@ export default class Client {
             token: process.env.GITHUB_TOKEN
         })
     }
-    public async getIssues(owner: string, repo: string, since: string) {
+    public async getIssues(
+        owner: string,
+        repo: string,
+        since: string,
+        assignee: string
+    ) {
         try {
             const { data } = await this.octokit.issues.listForRepo({
                 owner,
                 repo,
-                since
+                since,
+                assignee
             })
-            // console.log(data)
             return data
         } catch (e) {
             console.log('ERROR', e)
