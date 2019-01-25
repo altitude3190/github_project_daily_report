@@ -12,12 +12,17 @@ export default class Formatter {
 
         let str = ''
 
-        arranged.forEach((val, key) => {
-            str = `${str}\n- ${key}`
-            val.forEach(element => {
-                str = `${str}\n    - ${element}`
+        Array.from(arranged.keys())
+            .sort((a, _) => {
+                if (a === 'other') return 1
+                return -1
             })
-        })
+            .forEach((key, _) => {
+                str = `${str}\n- ${key}`
+                arranged.get(key).forEach(element => {
+                    str = `${str}\n    - ${element}`
+                })
+            })
 
         return str
     }
@@ -26,19 +31,21 @@ export default class Formatter {
         let map = new Map<string, string[]>()
 
         this.data.forEach(e => {
-            let val
+            let val: string[]
             if (e.labels.length) {
                 if (!map.get(`[${e.labels[0].name}](${e.labels[0].url})`)) {
                     map.set(`[${e.labels[0].name}](${e.labels[0].url})`, [])
                 }
                 val = map.get(`[${e.labels[0].name}](${e.labels[0].url})`)
             } else {
-                if (!map.get('no label')) {
-                    map.set('no label', [])
+                if (!map.get('other')) {
+                    map.set('other', [])
                 }
-                val = map['other'] || []
+                console.log(e)
+                val = map.get('other')
             }
-            val.push(`[${e.title}](${e.url})`)
+            const statusStr = e.state === 'closed' ? '[Done]' : ''
+            val.push(`${statusStr}[${e.title}](${e.url})`)
         })
 
         return map
