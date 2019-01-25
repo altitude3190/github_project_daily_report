@@ -27,7 +27,8 @@ export default class Client {
                 owner,
                 repo,
                 since,
-                assignee
+                assignee,
+                state: 'all'
             })
             return data
         } catch (e) {
