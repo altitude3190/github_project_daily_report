@@ -1,12 +1,6 @@
 import Client from './src/client'
-import Formatter from './src/formatter';
-
-class Startup {
-    public static main(hoge: string): number {
-        console.log('Hello World' + hoge)
-        return 0
-    }
-}
+import Formatter from './src/formatter'
+import * as program from 'commander'
 
 function today(): string {
     const today = new Date()
@@ -16,22 +10,39 @@ function today(): string {
     return `${YYYY}-${MM}-${DD}`
 }
 
-const owner = process.argv[2]
-const repo = process.argv[3]
-const since = process.argv[4] || today()
-const assignee = process.argv[5] || '*'
+program
+    .option(
+        '-r, --repos <repos>',
+        'target repos',
+        (value: string) => value.split(','),
+        []
+    )
+    .option('--since [date]', 'updated since', today())
+    .option('-a, --assignee [assignee]', 'assignee', '*')
+    .parse(process.argv)
 
-Startup.main(since)
+const repos = program.repos || []
+const since = program.since || today()
+const assignee = program.assignee || '*'
+const owner = process.env.OWNER
+
+if (repos < 3 && !owner) {
+    console.log('invalid arguments')
+    program.help()
+}
 
 const client = new Client()
-const hoge = client
-    .getIssues(owner, repo, since, assignee)
-    .catch(e => {
-        console.log(e)
-    })
-    .then(res => {
-        if (res) {
-            const formatter = new Formatter(res)
-            console.log(formatter.format())
-        }
-    })
+
+repos.forEach((repo: string) => {
+    const _ = client
+        .getIssues(owner, repo, since, assignee)
+        .catch(e => {
+            console.log(e)
+        })
+        .then(res => {
+            if (res) {
+                const formatter = new Formatter(repo, res)
+                console.log(formatter.format())
+            }
+        })
+})

@@ -2,15 +2,20 @@ import * as Octokit from '@octokit/rest'
 
 export default class Formatter {
     private data: Octokit.IssuesListForRepoResponseItem[]
+    private repoName: string
 
-    public constructor(data: Octokit.IssuesListForRepoResponseItem[]) {
+    public constructor(
+        repo: string,
+        data: Octokit.IssuesListForRepoResponseItem[]
+    ) {
         this.data = data
+        this.repoName = repo
     }
 
     public format(): string {
         const arranged = this.arrangeData()
 
-        let str = ''
+        let str = `- ${this.repoName}`
 
         Array.from(arranged.keys())
             .sort((a, _) => {
@@ -18,9 +23,9 @@ export default class Formatter {
                 return -1
             })
             .forEach((key, _) => {
-                str = `${str}\n- ${key}`
+                str = `${str}\n    - ${key}`
                 arranged.get(key).forEach(element => {
-                    str = `${str}\n    - ${element}`
+                    str = `${str}\n        - ${element}`
                 })
             })
 
@@ -41,7 +46,6 @@ export default class Formatter {
                 if (!map.get('other')) {
                     map.set('other', [])
                 }
-                console.log(e)
                 val = map.get('other')
             }
             const statusStr = e.state === 'closed' ? '[Done]' : ''
