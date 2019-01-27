@@ -33,7 +33,9 @@
   "dependencies": {
     "@octokit/rest": "^16.9.0",
     "@types/commander": "^2.12.2",
+    "@types/dotenv": "^6.1.0",
     "@types/node": "^10.12.18",
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "dotenv": "^6.2.0"
   }
 }
