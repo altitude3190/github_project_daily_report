@@ -1,6 +1,9 @@
 import Client from './src/client'
 import Formatter from './src/formatter'
 import * as program from 'commander'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 function today(): string {
     const today = new Date()
