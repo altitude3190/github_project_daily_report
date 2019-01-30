@@ -38,10 +38,10 @@ export default class Formatter {
         this.data.forEach(e => {
             let val: string[]
             if (e.labels.length) {
-                if (!map.get(`[${e.labels[0].name}](${e.labels[0].url})`)) {
-                    map.set(`[${e.labels[0].name}](${e.labels[0].url})`, [])
+                if (!map.get(e.labels[0].name)) {
+                    map.set(e.labels[0].name, [])
                 }
-                val = map.get(`[${e.labels[0].name}](${e.labels[0].url})`)
+                val = map.get(e.labels[0].name)
             } else {
                 if (!map.get('other')) {
                     map.set('other', [])
@@ -49,7 +49,7 @@ export default class Formatter {
                 val = map.get('other')
             }
             const statusStr = e.state === 'closed' ? '[Done]' : ''
-            val.push(`${statusStr}[${e.title}](${e.url})`)
+            val.push(`${statusStr}[${e.title}](${e.html_url})`)
         })
 
         return map
